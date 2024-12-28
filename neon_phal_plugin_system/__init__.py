@@ -29,11 +29,11 @@ class SystemEventsValidator(PHALValidator):
         This allows a plugin to run platform checks"""
         # check if admin plugin is not enabled
         cfg = Configuration().get("PHAL", {}).get("admin", {})
-        if cfg.get("ovos-PHAL-plugin-system", {}).get("enabled"):
+        if cfg.get("neon-phal-plugin-system", {}).get("enabled"):
             # run this plugin in admin mode (as root)
             return False
 
-        LOG.info("ovos-PHAL-plugin-system running as user")
+        LOG.info("neon-phal-plugin-system running as user")
         return True
 
 
@@ -41,8 +41,9 @@ class SystemEventsPlugin(PHALPlugin):
     validator = SystemEventsValidator
 
     def __init__(self, bus=None, config=None):
-        super().__init__(bus=bus, name="ovos-PHAL-plugin-system", config=config)
+        super().__init__(bus=bus, name="neon-phal-plugin-system", config=config)
         self.gui = GUIInterface(bus=self.bus, skill_id=self.name,
+                                ui_directories={"qt5": join(dirname(__file__), "ui")},
                                 config=self.config_core.get('gui'))
         self.bus.on("system.ssh.status", self.handle_ssh_status)
         self.bus.on("system.ssh.enable", self.handle_ssh_enable_request)
@@ -60,10 +61,9 @@ class SystemEventsPlugin(PHALPlugin):
         self.bus.on("system.mycroft.service.restart", self.handle_mycroft_restart_request)
         self.bus.on("system.mycroft.service.restart.start", self.handle_mycroft_restarting)
 
-        self.core_service_name = config.get("core_service") or "ovos.service"
+        self.core_service_name = config.get("core_service") or "neon.service"
         # In Debian, ssh stays active, but sshd is removed when ssh is disabled
         self.ssh_service = config.get("ssh_service") or "sshd.service"
-        self.use_root = config.get("sudo", True)
 
         self.factory_reset_plugs = []
 
@@ -196,7 +196,9 @@ class SystemEventsPlugin(PHALPlugin):
 
     def handle_clock_sync(self, message: Message):
         if message.data.get("display", True):
-            self.gui.show_status_animation("Clock Synchronized", True)
+            self.gui["status"] = "Enabled"
+            self.gui["label"] = "Clock Synchronized"
+            self.gui.show_page("Status")
 
     def handle_ssh_enable_request(self, message: Message):
         subprocess.call(f"systemctl enable {self.ssh_service}", shell=True)
@@ -205,7 +207,9 @@ class SystemEventsPlugin(PHALPlugin):
 
     def handle_ssh_enabled(self, message: Message):
         if message.data.get("display", True):
-            self.gui.show_status_animation("SSH Enabled", True)
+            self.gui["status"] = "Enabled"
+            self.gui["label"] = "SSH Enabled"
+            self.gui.show_page("Status")
 
     def handle_ssh_disable_request(self, message: Message):
         subprocess.call(f"systemctl stop {self.ssh_service}", shell=True)
@@ -215,16 +219,17 @@ class SystemEventsPlugin(PHALPlugin):
     def handle_ssh_disabled(self, message: Message):
         # ovos-shell does not want to display
         if message.data.get("display", True):
-            self.gui.show_status_animation("SSH Disabled", False)
+            self.gui["status"] = "Disabled"
+            self.gui["label"] = "SSH Disabled"
+            self.gui.show_page("Status")
 
     def handle_rebooting(self, message: Message):
         """
         reboot has started
         """
         if message.data.get("display", True):
-            self.gui.show_loading_animation("Rebooting",
-                                            override_animations=True,
-                                            override_idle=True)
+            self.gui.show_page("Reboot", override_animations=True,
+                               override_idle=True)
 
     def handle_reboot_request(self, message: Message):
         """
@@ -243,9 +248,8 @@ class SystemEventsPlugin(PHALPlugin):
         shutdown has started
         """
         if message.data.get("display", True):
-            self.gui.show_loading_animation("Shutting Down",
-                                            override_animations=True,
-                                            override_idle=True)
+            self.gui.show_page("Shutdown", override_animations=True,
+                               override_idle=True)
 
     def handle_shutdown_request(self, message: Message):
         """
@@ -273,16 +277,17 @@ class SystemEventsPlugin(PHALPlugin):
         # it is usually part of other groups of actions that may
         # provide their own UI
         if message.data.get("display", False):
-            self.gui.show_status_animation(f"Language changed to {language_code}", True)
+            self.gui["status"] = "Enabled"
+            self.gui["label"] = f"Language changed to {language_code}"
+            self.gui.show_page("Status")
 
         self.bus.emit(Message('system.configure.language.complete',
                               {"lang": language_code}))
 
     def handle_mycroft_restarting(self, message: Message):
         if message.data.get("display", True):
-            self.gui.show_loading_animation("Restarting",
-                                            override_animations=True,
-                                            override_idle=True)
+            self.gui.show_page("Restart", override_animations=True,
+                               override_idle=True)
 
     def handle_mycroft_restart_request(self, message: Message):
         service = self.core_service_name
@@ -325,7 +330,7 @@ class SystemEventsPlugin(PHALPlugin):
 class SystemEventsAdminValidator(AdminValidator, SystemEventsValidator):
     @staticmethod
     def validate(config=None):
-        LOG.info("ovos-PHAL-plugin-system running as root")
+        LOG.info("neon-phal-plugin-system running as root")
         return True
 
 

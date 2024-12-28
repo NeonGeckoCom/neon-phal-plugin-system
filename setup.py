@@ -7,8 +7,7 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 def get_version():
     """ Find the version of the package"""
-    version = None
-    version_file = os.path.join(BASEDIR, 'ovos_PHAL_plugin_system',
+    version_file = os.path.join(BASEDIR, 'neon_phal_plugin_system',
                                 'version.py')
     major, minor, build, alpha = (None, None, None, None)
     with open(version_file) as f:
@@ -55,20 +54,20 @@ def get_description():
         long_description = f.read()
     return long_description
 
-PLUGIN_ENTRY_POINT = 'ovos-PHAL-plugin-system=ovos_PHAL_plugin_system:SystemEventsPlugin'
-ADMIN_ENTRY_POINT = 'ovos-PHAL-plugin-system=ovos_PHAL_plugin_system:SystemEventsAdminPlugin'
+PLUGIN_ENTRY_POINT = 'neon-phal-plugin-system=neon_phal_plugin_system:SystemEventsPlugin'
+ADMIN_ENTRY_POINT = 'neon-phal-plugin-system=neon_phal_plugin_system:SystemEventsAdminPlugin'
 setup(
-    name='ovos-PHAL-plugin-system',
+    name='neon-phal-plugin-system',
     version=get_version(),
-    description='A plugin for OpenVoiceOS hardware abstraction layer',
+    description='A plugin for OVOS/Neon hardware abstraction layer',
     long_description=get_description(),
     long_description_content_type="text/markdown",
-    url='https://github.com/OpenVoiceOS/ovos-PHAL-plugin-system',
-    author='JarbasAi',
-    author_email='jarbasai@mailfence.com',
+    url='https://github.com/NeonGeckoCom/neon-phal-plugin-system',
+    author='NeonGecko',
+    author_email='developers@neon.ai',
     license='Apache-2.0',
-    packages=['ovos_PHAL_plugin_system'],
-    package_data={'': package_files('ovos_PHAL_plugin_system')},
+    packages=['neon_phal_plugin_system'],
+    package_data={'': package_files('neon_phal_plugin_system')},
     install_requires=required("requirements.txt"),
     zip_safe=True,
     classifiers=[
