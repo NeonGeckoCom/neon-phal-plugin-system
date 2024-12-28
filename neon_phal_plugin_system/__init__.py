@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from os.path import dirname, join
 from threading import Event
+from time import sleep
 
 from json_database import JsonStorageXDG, JsonDatabaseXDG
 from ovos_bus_client.apis.gui import GUIInterface
@@ -295,11 +296,13 @@ class SystemEventsPlugin(PHALPlugin):
         self.bus.emit(message.forward("system.mycroft.service.restart.start", message.data))
 
         try:
-            restart_service(service, sudo=self.use_root,
+            restart_service(service, sudo=False,
                             user=self.core_service_is_user)
         except Exception as e:
             LOG.error(f"Failed to restart service: {e}")
-            self.gui.clear()  # Release the GUI
+            # Allow some time for the GUI display to start and release it
+            sleep(5)
+            self.gui.clear()
 
     def handle_ssh_status(self, message: Message):
         """
