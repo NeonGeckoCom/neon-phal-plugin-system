@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from os.path import dirname, join
 from threading import Event
+from time import sleep
 
 from json_database import JsonStorageXDG, JsonDatabaseXDG
 from ovos_bus_client.apis.gui import GUIInterface
@@ -62,6 +63,7 @@ class SystemEventsPlugin(PHALPlugin):
         self.bus.on("system.mycroft.service.restart.start", self.handle_mycroft_restarting)
 
         self.core_service_name = config.get("core_service") or "neon.service"
+        self.core_service_is_user = config.get("core_service_is_user", True)
         # In Debian, ssh stays active, but sshd is removed when ssh is disabled
         self.ssh_service = config.get("ssh_service") or "sshd.service"
 
@@ -292,15 +294,14 @@ class SystemEventsPlugin(PHALPlugin):
     def handle_mycroft_restart_request(self, message: Message):
         service = self.core_service_name
         self.bus.emit(message.forward("system.mycroft.service.restart.start", message.data))
-        # TODO - clean up this mess
+        # Allow some time for the GUI display to start
+        sleep(5)
         try:
-            restart_service(service, sudo=False, user=True)
-        except:
-            try:
-                restart_service(service, sudo=True, user=False)
-            except:
-                LOG.error("No mycroft or ovos service installed")
-                return False
+            restart_service(service, sudo=False,
+                            user=self.core_service_is_user)
+        except Exception as e:
+            LOG.error(f"Failed to restart service: {e}")
+            self.gui.clear()  # Release the GUI
 
     def handle_ssh_status(self, message: Message):
         """
