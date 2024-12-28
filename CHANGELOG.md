@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0a3](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.3.0a3) (2024-12-28)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.3.0a2...1.3.0a3)
+
+**Merged pull requests:**
+
+- Refactor service restart config and handling [\#2](https://github.com/NeonGeckoCom/neon-phal-plugin-system/pull/2) ([NeonDaniel](https://github.com/NeonDaniel))
+
 ## [1.3.0a2](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.3.0a2) (2024-12-28)
 
 [Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.3.0a1...1.3.0a2)
@@ -26,15 +34,15 @@
 
 ## [1.1.0a1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.1.0a1) (2024-12-03)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V1.0.3...1.1.0a1)
-
-## [V1.0.3](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/V1.0.3) (2024-12-02)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.3...V1.0.3)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.3...1.1.0a1)
 
 ## [1.0.3](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.3) (2024-12-02)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.3a1...1.0.3)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V1.0.3...1.0.3)
+
+## [V1.0.3](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/V1.0.3) (2024-12-02)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.3a1...V1.0.3)
 
 ## [1.0.3a1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.3a1) (2024-12-02)
 
@@ -74,15 +82,15 @@
 
 ## [1.0.0a1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.0a1) (2024-09-17)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/0.1.0...1.0.0a1)
-
-## [0.1.0](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/0.1.0) (2024-09-11)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V0.1.0...0.1.0)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V0.1.0...1.0.0a1)
 
 ## [V0.1.0](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/V0.1.0) (2024-09-11)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/0.0.6a1...V0.1.0)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/0.1.0...V0.1.0)
+
+## [0.1.0](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/0.1.0) (2024-09-11)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/0.0.6a1...0.1.0)
 
 ## [0.0.6a1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/0.0.6a1) (2024-09-11)
 
