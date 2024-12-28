@@ -294,15 +294,14 @@ class SystemEventsPlugin(PHALPlugin):
     def handle_mycroft_restart_request(self, message: Message):
         service = self.core_service_name
         self.bus.emit(message.forward("system.mycroft.service.restart.start", message.data))
-
+        # Allow some time for the GUI display to start
+        sleep(5)
         try:
             restart_service(service, sudo=False,
                             user=self.core_service_is_user)
         except Exception as e:
             LOG.error(f"Failed to restart service: {e}")
-            # Allow some time for the GUI display to start and release it
-            sleep(5)
-            self.gui.clear()
+            self.gui.clear()  # Release the GUI
 
     def handle_ssh_status(self, message: Message):
         """
