@@ -58,27 +58,27 @@
 
 ## [1.0.2a1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.2a1) (2024-11-29)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V1.0.1...1.0.2a1)
-
-## [V1.0.1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/V1.0.1) (2024-11-06)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.1...V1.0.1)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.1...1.0.2a1)
 
 ## [1.0.1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.1) (2024-11-06)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.1a1...1.0.1)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V1.0.1...1.0.1)
+
+## [V1.0.1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/V1.0.1) (2024-11-06)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.1a1...V1.0.1)
 
 ## [1.0.1a1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.1a1) (2024-11-06)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V1.0.0...1.0.1a1)
-
-## [V1.0.0](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/V1.0.0) (2024-09-17)
-
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.0...V1.0.0)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.0...1.0.1a1)
 
 ## [1.0.0](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.0) (2024-09-17)
 
-[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.0a1...1.0.0)
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/V1.0.0...1.0.0)
+
+## [V1.0.0](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/V1.0.0) (2024-09-17)
+
+[Full Changelog](https://github.com/NeonGeckoCom/neon-phal-plugin-system/compare/1.0.0a1...V1.0.0)
 
 ## [1.0.0a1](https://github.com/NeonGeckoCom/neon-phal-plugin-system/tree/1.0.0a1) (2024-09-17)
 
