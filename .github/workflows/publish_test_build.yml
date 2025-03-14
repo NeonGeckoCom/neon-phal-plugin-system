@@ -1,0 +1,22 @@
+# This workflow will generate a distribution and upload it to PyPI
+
+name: Publish Alpha Build
+on:
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - 'neon_phal_plugin_system/version.py'
+
+jobs:
+  publish_alpha_release:
+    uses: neongeckocom/.github/.github/workflows/publish_alpha_release.yml@master
+    secrets: inherit
+    with:
+      version_file: "neon_phal_plugin_system/version.py"
+      alpha_var: VERSION_ALPHA
+      build_var: VERSION_BUILD
+      minor_var: VERSION_MINOR
+      major_var: VERSION_MAJOR
+      publish_prerelease: true
+      update_changelog: true

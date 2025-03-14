@@ -3,6 +3,7 @@ import shutil
 import subprocess
 from os.path import dirname, join
 from threading import Event
+from time import sleep
 
 from json_database import JsonStorageXDG, JsonDatabaseXDG
 from ovos_bus_client.apis.gui import GUIInterface
@@ -29,11 +30,11 @@ class SystemEventsValidator(PHALValidator):
         This allows a plugin to run platform checks"""
         # check if admin plugin is not enabled
         cfg = Configuration().get("PHAL", {}).get("admin", {})
-        if cfg.get("ovos-PHAL-plugin-system", {}).get("enabled"):
+        if cfg.get("neon-phal-plugin-system", {}).get("enabled"):
             # run this plugin in admin mode (as root)
             return False
 
-        LOG.info("ovos-PHAL-plugin-system running as user")
+        LOG.info("neon-phal-plugin-system running as user")
         return True
 
 
@@ -41,7 +42,7 @@ class SystemEventsPlugin(PHALPlugin):
     validator = SystemEventsValidator
 
     def __init__(self, bus=None, config=None):
-        super().__init__(bus=bus, name="ovos-PHAL-plugin-system", config=config)
+        super().__init__(bus=bus, name="neon-phal-plugin-system", config=config)
         self.gui = GUIInterface(bus=self.bus, skill_id=self.name,
                                 ui_directories={"qt5": join(dirname(__file__), "ui")},
                                 config=self.config_core.get('gui'))
@@ -61,10 +62,10 @@ class SystemEventsPlugin(PHALPlugin):
         self.bus.on("system.mycroft.service.restart", self.handle_mycroft_restart_request)
         self.bus.on("system.mycroft.service.restart.start", self.handle_mycroft_restarting)
 
-        self.core_service_name = config.get("core_service") or "ovos.service"
+        self.core_service_name = config.get("core_service") or "neon.service"
+        self.core_service_is_user = config.get("core_service_is_user", True)
         # In Debian, ssh stays active, but sshd is removed when ssh is disabled
         self.ssh_service = config.get("ssh_service") or "sshd.service"
-        self.use_root = config.get("sudo", True)
 
         self.factory_reset_plugs = []
 
@@ -293,15 +294,14 @@ class SystemEventsPlugin(PHALPlugin):
     def handle_mycroft_restart_request(self, message: Message):
         service = self.core_service_name
         self.bus.emit(message.forward("system.mycroft.service.restart.start", message.data))
-        # TODO - clean up this mess
+        # Allow some time for the GUI display to start
+        sleep(5)
         try:
-            restart_service(service, sudo=False, user=True)
-        except:
-            try:
-                restart_service(service, sudo=True, user=False)
-            except:
-                LOG.error("No mycroft or ovos service installed")
-                return False
+            restart_service(service, sudo=False,
+                            user=self.core_service_is_user)
+        except Exception as e:
+            LOG.error(f"Failed to restart service: {e}")
+            self.gui.clear()  # Release the GUI
 
     def handle_ssh_status(self, message: Message):
         """
@@ -331,7 +331,7 @@ class SystemEventsPlugin(PHALPlugin):
 class SystemEventsAdminValidator(AdminValidator, SystemEventsValidator):
     @staticmethod
     def validate(config=None):
-        LOG.info("ovos-PHAL-plugin-system running as root")
+        LOG.info("neon-phal-plugin-system running as root")
         return True
 
 
